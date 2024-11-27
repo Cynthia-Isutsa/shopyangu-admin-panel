@@ -1,0 +1,57 @@
+{
+    "shops": [
+    {
+      "id": "1",
+      "name": "Shiro Wholesale Shop",
+      "type": "Wholesale",
+      "description": "Household and office essentials",
+      "logo": "/shiro.jpg",
+      "location": "RiverRoad, Block A",
+       "contact": "0722595487"
+    },
+    {
+      "id": "2",
+      "name": "Tucha Ltd",
+      "type": "wholesale",
+      "description": "Electronics and gadgets",
+      "logo": "/tucha.jpeg",
+      "location": "Tech Avenue, Suite 10",
+       "contact": "0722567237"
+    },
+    {
+      "id": "3",
+      "name": "Mega Wholesalers Ltd",
+      "type": "retail",
+      "description": "Specialists in bulk supplies of food and beverages for businesses.",
+      "logo": "/mega.png",
+      "location": "Industrial Park, Warehouse 5",
+      "contact": "0756458908"
+    },
+    {
+      "id": "4",
+      "name": "Sublime Retailers Shop",
+      "type": "retail",
+      "description": "Your one-stop shop for quality clothing and accessories at affordable prices.",
+      "logo": "/sublime.jpeg",
+      "location": "Main Street, Shop 22",
+      "contact": "0756478788"
+    },
+    {
+      "id": "5",
+      "name": "OneStop Sellers",
+      "type": "wholesale",
+      "description": "A diverse range of goods from groceries to electronics, all under one roof.",
+      "logo": "onestop.png",
+      "location": "City Plaza, Ground Floor",
+      "contact": "0756478678"
+    }
+  ],
+  
+      "comments": [
+        { "id": "1", "text": "a comment about post 1", "postId": "1" },
+        { "id": "2", "text": "another comment about post 1", "postId": "1" }
+      ],
+      "profile": {
+        "name": "typicode"
+      }
+    }
