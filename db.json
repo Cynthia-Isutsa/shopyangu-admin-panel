@@ -44,7 +44,34 @@
       "logo": "onestop.png",
       "location": "City Plaza, Ground Floor",
       "contact": "0756478678"
-    }
+    },
+    {
+        "id": "6",
+        "name": "Giant Retailers",
+        "type": "retail",
+        "description": "Bulk buying of furniture and home appliances.",
+        "logo": "/tucha.jpeg",
+        "location": "Uptown Mall, Level 3",
+        "contact": "0756478901"
+      },
+      {
+        "id": "7",
+        "name": "Global Goods",
+        "type": "wholesale",
+        "description": "Imported goods at competitive wholesale prices.",
+        "logo":  "/mega.png",
+        "location": "Market Square, Block B",
+        "contact": "0722334455"
+      },
+      {
+        "id": "8",
+        "name": "TechWorld Suppliers",
+        "type": "wholesale",
+        "description": "Wholesale tech gadgets and accessories.",
+        "logo": "/sublime.jpeg",
+        "location": "Silicon Valley, Tech Park",
+        "contact": "0722334777"
+      }
   ],
   
       "comments": [

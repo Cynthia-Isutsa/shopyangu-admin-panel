@@ -5,6 +5,8 @@ import PageTitle from "@/components/PageTitle";
 import { DataTable } from "@/components/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
 import { fetchShops } from "../services/service";
+import { Button } from "@/components/ui/button";
+import router from "next/router";
 
 
 
@@ -19,22 +21,20 @@ type Shop = {
 };
 
 const Page = () => {
-  const [shops, setShops] = useState<Payment[]>([]); 
-  const [error, setError] = useState<string | null>(null); // State for error handling
-
-  // Fetch data when the component mounts
+  const [shops, setShops] = useState<Shop[]>([]); 
+  const [error, setError] = useState<string | null>(null); 
   useEffect(() => {
     const loadShops = async () => {
       try {
         const data = await fetchShops(); 
         setShops(data); 
       } catch (error: any) {
-        setError(error.message); // Handle errors
+        setError(error.message); 
       }
     };
 
-    loadShops(); // Trigger the data fetching
-  }, []); // Empty dependency array ensures this runs once on component mount
+    loadShops(); 
+  }, []); 
 
   console.log({shops})
   if (error) {
@@ -53,7 +53,10 @@ const Page = () => {
     {
       accessorKey: "type",
       header: "Type",
-      cell: (info) => info.getValue(),
+      cell: (info) => {
+        const value = info.getValue() as string;
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      },
       meta: {
         style: { width: "100px" },
       },
@@ -83,7 +86,10 @@ const Page = () => {
     {
       accessorKey: "location",
       header: "Location",
-      cell: (info) => info.getValue(),
+      cell: (info) => {
+        const value = info.getValue() as string;
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      },
       meta: {
         style: { width: "100px" },
       },
@@ -98,9 +104,24 @@ const Page = () => {
     },
   ];
 
+  const handleAddShopClick = () => {
+    router.push("/addShop"); 
+  }
+
   return (
-    <div className="flex flex-col gap-5 w-full">
-      <PageTitle title="Shops" />
+    <div className="flex flex-col gap-5 w-full px-10">
+      <div className="flex justify-between items-center px-10">
+        <PageTitle title="Shop Management" />
+        <Button
+          variant="destructive"
+          size="sm"
+          onClick={handleAddShopClick}
+          //disabled={!table.getCanPreviousPage()}
+        >
+          Add Shop
+        </Button>
+      </div>
+      
       <DataTable columns={columns} data={shops} />
     </div>
   );
