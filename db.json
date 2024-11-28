@@ -1,5 +1,5 @@
 {
-    "shops": [
+  "shops": [
     {
       "id": "1",
       "name": "Shiro Wholesale Shop",
@@ -7,7 +7,7 @@
       "description": "Household and office essentials",
       "logo": "/shiro.jpg",
       "location": "RiverRoad, Block A",
-       "contact": "0722595487"
+      "contact": "0722595487"
     },
     {
       "id": "2",
@@ -16,7 +16,7 @@
       "description": "Electronics and gadgets",
       "logo": "/tucha.jpeg",
       "location": "Tech Avenue, Suite 10",
-       "contact": "0722567237"
+      "contact": "0722567237"
     },
     {
       "id": "3",
@@ -46,39 +46,47 @@
       "contact": "0756478678"
     },
     {
-        "id": "6",
-        "name": "Giant Retailers",
-        "type": "retail",
-        "description": "Bulk buying of furniture and home appliances.",
-        "logo": "/tucha.jpeg",
-        "location": "Uptown Mall, Level 3",
-        "contact": "0756478901"
-      },
-      {
-        "id": "7",
-        "name": "Global Goods",
-        "type": "wholesale",
-        "description": "Imported goods at competitive wholesale prices.",
-        "logo":  "/mega.png",
-        "location": "Market Square, Block B",
-        "contact": "0722334455"
-      },
-      {
-        "id": "8",
-        "name": "TechWorld Suppliers",
-        "type": "wholesale",
-        "description": "Wholesale tech gadgets and accessories.",
-        "logo": "/sublime.jpeg",
-        "location": "Silicon Valley, Tech Park",
-        "contact": "0722334777"
-      }
-  ],
-  
-      "comments": [
-        { "id": "1", "text": "a comment about post 1", "postId": "1" },
-        { "id": "2", "text": "another comment about post 1", "postId": "1" }
-      ],
-      "profile": {
-        "name": "typicode"
-      }
+      "id": "6",
+      "name": "Giant Retailers",
+      "type": "retail",
+      "description": "Bulk buying of furniture and home appliances.",
+      "logo": "/tucha.jpeg",
+      "location": "Uptown Mall, Level 3",
+      "contact": "0756478901"
+    },
+    {
+      "id": "7",
+      "name": "Global Goods",
+      "type": "wholesale",
+      "description": "Imported furniture at competitive wholesale prices.",
+      "logo": "/mega.png",
+      "location": "Market Square, Block B",
+      "contact": "0722334455"
+    },
+    {
+      "id": "8",
+      "name": "TechWorld Suppliers",
+      "type": "wholesale",
+      "description": "Wholesale tech gadgets and accessories.",
+      "logo": "/sublime.jpeg",
+      "location": "Silicon Valley, Tech Park",
+      "contact": "0722334777"
     }
+  ],
+  "products": [
+    {
+      "shopId": "1",
+      "name": "Kettle",
+      "price": 10000,
+      "stockLevel": 4500,
+      "image": "data:image/jpeg;base64,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",
+      "category": "Clothing",
+      "description": "Kettle",
+      "apiId": "v1",
+      "id": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

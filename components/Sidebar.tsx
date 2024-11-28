@@ -45,7 +45,7 @@ const Sidebar = ({
               },
               {
                 title: "Product Management",
-                href: "/product",
+                href: "/productmanagement",
                 icon: MessagesSquare,
                 variant: "ghost",
               },

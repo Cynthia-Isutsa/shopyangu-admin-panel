@@ -8,9 +8,6 @@ import { fetchShops } from "../services/service";
 import { Button } from "@/components/ui/button";
 import router from "next/router";
 
-
-
-
 type Shop = {
   name: string;
   type: string;
