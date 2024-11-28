@@ -15,6 +15,21 @@ export const fetchShops = async () => {
   }
 };
 
+export const fetchAllShops = async ():Promise<Product[]>=> {
+  try {
+  
+    const response = await fetch(`/api/v1/products`);
+    if (!response.ok) {
+      throw new Error(`Error fetching products: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data; 
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error; 
+  }
+};
+
 export const fetchProductsByShop = async (shopId: string): Promise<Product[]> => {
   try {
     const response = await fetch('/api/v1/products');
