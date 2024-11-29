@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import  Sidebar  from "@/components/Sidebar";
+import ShopYanguCard from "@/components/ShopYanguCard";
 
 
 const geistSans = localFont({
@@ -30,12 +31,16 @@ export default function RootLayout({
     <html lang="en">
       <body
        className={cn(
-        `${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full bg-white text-black flex`,
+        `${geistSans.variable} ${geistMono.variable} antialiased `,
         { 'debug-screens': process.env.NODE_ENV === 'development' }
       )}
       >
+        <ShopYanguCard />
+        <div className="min-h-screen w-full bg-white text-black flex">
+        
         <Sidebar defaultCollapsed={false} />
         <div className="p-8 w-full">{children}</div>
+        </div>
       </body>
     </html>
   );

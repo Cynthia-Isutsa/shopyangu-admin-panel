@@ -1,4 +1,4 @@
-import { Product } from "@/data";
+import { Product, Shop } from "@/data";
 
 export const fetchShops = async () => {
   try {
@@ -74,6 +74,30 @@ export const addProduct = async (product: Omit<Product, 'id'>): Promise<Product>
   }
 };
 
+export const addShop = async (product: Omit<Shop, 'id'>): Promise<Shop> => {
+  try {
+    const response = await fetch('/api/v1/shops', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(product),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to add shop: ${response.statusText}`);
+    }
+
+    const data: Shop = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error('Error adding shop:', error.message || error);
+    throw error;
+  }
+};
+
+
+
 
 export const deleteProduct = async (product: Omit<Product, 'id'>): Promise<Product> => {
   try {
@@ -96,5 +120,27 @@ export const deleteProduct = async (product: Omit<Product, 'id'>): Promise<Produ
     throw error;
   }
 };
+
+export const deleteShop = async (id: string): Promise<void> => {
+  try {
+    const response = await fetch(`/api/v1/shops/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete shop: ${response.statusText}`);
+    }
+
+    return; 
+  } catch (error: any) {
+    console.error('Error deleting shop:', error.message || error);
+    throw error;
+  }
+};
+
+
 
 

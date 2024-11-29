@@ -1,7 +1,7 @@
 export interface Shop {
-    id: string;
+    id?: string;
     name: string;
-    type: string; 
+    type: "General" | "Wholesale" | "Retail",
     description: string;
     logo: string; 
     location: string; 
