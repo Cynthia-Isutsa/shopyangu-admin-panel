@@ -10,15 +10,16 @@ import {
 } from "../ui/card";
 import { Barcode, ChartColumnDecreasing, CircleDollarSign, House } from "lucide-react";
 import { useEffect, useState } from "react";
-import { fetchShops } from "@/app/services/service";
+import { fetchAllProducts, fetchShops, } from "@/app/services/service";
 import { Product } from "@/data";
 import { Overview } from "./Overview";
 import ProductsStatus from "./ProductsStatus";
 import RealTimeUpdates from "./RealTimeUpdates";
+import RecentShops from "./RecentShops";
 
 
 const DashboardTabs = () => {
-  const [shops, setShops] = useState(0); 
+  const [shops, setShops] = useState<any>(); 
   const [products, setProducts] = useState<any>(); 
   const [error, setError] = useState(""); 
 
@@ -26,7 +27,7 @@ useEffect(() => {
   const loadShops = async () => {
     try {
       const data = await fetchShops(); 
-      setShops(data?.length); 
+      setShops(data); 
     } catch (error: any) {
       setError(" "); 
     }
@@ -48,6 +49,14 @@ useEffect(() => {
   loadProducts(); 
 }, []); 
 
+const calculateTotalPrice = (accumulator, product) => accumulator + product.price * product.stockLevel;
+const totalPrice = products?.reduce(calculateTotalPrice, 0);
+const calculateTotalStockLevel = (accumulator, product) => accumulator + product.stockLevel;
+const totalStockLevel = products?.reduce(calculateTotalStockLevel, 0);
+
+console.log("Total Stock Level:", totalStockLevel);
+console.log("Total Price:", totalPrice);
+
 console.log({products})
   return (
     <Tabs defaultValue="overview" className="space-y-4">
@@ -55,9 +64,6 @@ console.log({products})
         <TabsTrigger value="overview">Overview Metrics</TabsTrigger>
         <TabsTrigger value="productsStockStatus">
           Products Stock Status
-        </TabsTrigger>
-        <TabsTrigger value="realTimeUpdates">
-          Real Time Updates
         </TabsTrigger>
       </TabsList>
       <TabsContent value="overview" className="space-y-4">
@@ -70,7 +76,7 @@ console.log({products})
               <House />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{shops}</div>
+              <div className="text-2xl font-bold">{shops?.length}</div>
               <p className="text-xs text-muted-foreground">
                 +20.1% from last month
               </p>
@@ -85,7 +91,7 @@ console.log({products})
               <Barcode />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{products}</div>
+              <div className="text-2xl font-bold">{products?.length}</div>
               <p className="text-xs text-muted-foreground">
                 +180.1% from last month
               </p>
@@ -97,7 +103,7 @@ console.log({products})
               <CircleDollarSign />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+12,234</div>
+              <div className="text-2xl font-bold">Ksh.{totalPrice}</div>
               <p className="text-xs text-muted-foreground">
                 +19% from last month
               </p>
@@ -109,7 +115,7 @@ console.log({products})
               <ChartColumnDecreasing />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+573</div>
+              <div className="text-2xl font-bold">{totalStockLevel}</div>
               <p className="text-xs text-muted-foreground">
                 +201 since last hour
               </p>
@@ -122,30 +128,24 @@ console.log({products})
               <CardTitle>Overview</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-              <Overview />
+              <Overview products={products} />
             </CardContent>
           </Card>
           <Card className="col-span-3">
             <CardHeader>
-              <CardTitle>Recent Sales</CardTitle>
-              <CardDescription>You made 265 sales this month.</CardDescription>
+              <CardTitle>Recent shops</CardTitle>
+              <CardDescription>List of the last 10 shops Added.</CardDescription>
             </CardHeader>
-            <CardContent>{/* <RecentSales /> */}</CardContent>
+            <CardContent><RecentShops shops={shops} /></CardContent>
           </Card>
         </div>
       </TabsContent>
       <TabsContent value="productsStockStatus" className="space-y-4">
-        <ProductsStatus />
-      </TabsContent>
-      <TabsContent value="realTimeUpdates" className="space-y-4">
-        <RealTimeUpdates />
+        <ProductsStatus products={products} shops= {shops} />
       </TabsContent>
     </Tabs>
   );
 };
 
 export default DashboardTabs;
-function fetchAllProducts() {
-  throw new Error("Function not implemented.");
-}
 

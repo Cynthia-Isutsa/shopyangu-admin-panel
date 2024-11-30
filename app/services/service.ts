@@ -15,7 +15,7 @@ export const fetchShops = async () => {
   }
 };
 
-export const fetchAllShops = async ():Promise<Product[]>=> {
+export const fetchAllProducts = async ():Promise<Product[]>=> {
   try {
   
     const response = await fetch(`/api/v1/products`);
