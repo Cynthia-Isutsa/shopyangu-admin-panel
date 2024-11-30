@@ -7,9 +7,6 @@ import {
   CardTitle,
 } from "../ui/card";
 import {
-  House,
-  Barcode,
-  CircleDollarSign,
   Maximize2,
   Minimize,
   CircleSlash2,

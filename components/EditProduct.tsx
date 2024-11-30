@@ -16,9 +16,9 @@ import { editProduct } from "@/app/services/service";
 import { Product } from "@/data"; // Import Product type from data.d.ts
 import { Pencil } from "lucide-react";
 
-export function EditProduct({ shopId, product }: { shopId: string; product: Product }) {
+export function EditProduct({ shopId, product }) {
   const [formData, setFormData] = useState<Product>({
-    shopId: shopId,
+    //shopId: shopId,
     ...product,
   });
 

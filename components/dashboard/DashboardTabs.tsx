@@ -17,17 +17,17 @@ import RecentShops from "./RecentShops";
 
 
 const DashboardTabs = () => {
-  const [shops, setShops] = useState<any>(); 
-  const [products, setProducts] = useState<any>(); 
-  const [error, setError] = useState(""); 
+  const [shops, setShops] = useState(); 
+  const [products, setProducts] = useState(); 
+  // const [error, setError] = useState(""); 
 
 useEffect(() => {
   const loadShops = async () => {
     try {
       const data = await fetchShops(); 
       setShops(data); 
-    } catch (error: any) {
-      setError(" "); 
+    } catch (error) {
+     console.log( error)
     }
   };
 
@@ -39,8 +39,8 @@ useEffect(() => {
     try {
       const data = await fetchAllProducts(); 
       setProducts(data); 
-    } catch (error: any) {
-      setError(""); 
+    } catch (error) {
+      console.log( error)
     }
   };
 
