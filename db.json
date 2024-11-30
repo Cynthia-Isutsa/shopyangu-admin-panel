@@ -78,6 +78,17 @@
       "description": "red wine",
       "apiId": "v1",
       "id": 4
+    },
+    {
+      "shopId": "1",
+      "name": "Samsung",
+      "price": 29000,
+      "stockLevel": 0,
+      "image": "",
+      "category": "Electronics",
+      "description": "Samsung",
+      "apiId": "v1",
+      "id": 5
     }
   ],
   "profile": {

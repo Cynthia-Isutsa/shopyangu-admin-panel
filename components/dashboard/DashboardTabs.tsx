@@ -11,10 +11,8 @@ import {
 import { Barcode, ChartColumnDecreasing, CircleDollarSign, House } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchAllProducts, fetchShops, } from "@/app/services/service";
-import { Product } from "@/data";
 import { Overview } from "./Overview";
 import ProductsStatus from "./ProductsStatus";
-import RealTimeUpdates from "./RealTimeUpdates";
 import RecentShops from "./RecentShops";
 
 
@@ -77,9 +75,6 @@ console.log({products})
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{shops?.length}</div>
-              <p className="text-xs text-muted-foreground">
-                +20.1% from last month
-              </p>
             </CardContent>
           </Card>
           <Card>
@@ -92,9 +87,6 @@ console.log({products})
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{products?.length}</div>
-              <p className="text-xs text-muted-foreground">
-                +180.1% from last month
-              </p>
             </CardContent>
           </Card>
           <Card>
@@ -103,11 +95,11 @@ console.log({products})
               <CircleDollarSign />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Ksh.{totalPrice}</div>
-              <p className="text-xs text-muted-foreground">
-                +19% from last month
-              </p>
-            </CardContent>
+  <div className="text-2xl font-bold">
+    Ksh.{new Intl.NumberFormat('en-KE').format(totalPrice)}
+  </div>
+</CardContent>
+
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -116,9 +108,6 @@ console.log({products})
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalStockLevel}</div>
-              <p className="text-xs text-muted-foreground">
-                +201 since last hour
-              </p>
             </CardContent>
           </Card>
         </div>
@@ -134,7 +123,7 @@ console.log({products})
           <Card className="col-span-3">
             <CardHeader>
               <CardTitle>Recent shops</CardTitle>
-              <CardDescription>List of the last 10 shops Added.</CardDescription>
+              <CardDescription>List of the last 5 shops Added.</CardDescription>
             </CardHeader>
             <CardContent><RecentShops shops={shops} /></CardContent>
           </Card>

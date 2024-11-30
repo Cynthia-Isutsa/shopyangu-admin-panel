@@ -80,7 +80,7 @@ const page = () => {
       header: "Product Image",
       cell: (info) => (
         <img
-          src={info.getValue() as string}
+          src={info.getValue() as string || "/default.png"}
           alt="Product Image"
           style={{ width: "50px", height: "50px" }}
         />
@@ -102,7 +102,7 @@ const page = () => {
       header: "Price",
       cell: (info) => {
         const value = info.getValue() as number;
-        return `$${value.toFixed(2)}`;
+        return `Ksh.${value.toFixed(2)}`;
       },
       meta: {
         style: { width: "100px" },
@@ -168,7 +168,7 @@ const page = () => {
       <div className="flex gap-4 my-8 mr-10">
         <input
           type="text"
-          placeholder="Search by name"
+          placeholder="Search by product's name"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="border p-2 rounded w-full"

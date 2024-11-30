@@ -3,10 +3,9 @@ import React from 'react'
 const TopShops = ({topShops}) => {
   return (
     <div>
-        <h4>Top 5 Shops by Stock Level:</h4>
-        <ol style={{ paddingBottom: "20px" }}>
+        <ol style={{ paddingBottom: "20px",  listStyleType: 'decimal'}}>
           {topShops.map((shop) => (
-            <li key={shop.id}>
+            <li key={shop.id} style={{ marginBottom: '22px'}}>
               <strong>{shop.name}</strong>: {shop.totalStockLevel} items
             </li>
           ))}

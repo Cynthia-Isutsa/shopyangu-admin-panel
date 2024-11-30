@@ -71,7 +71,7 @@ const Page = () => {
       header: 'Logo',
       cell: (info) => (
         <img
-          src={info.getValue() as string}
+          src={info.getValue() as string || "/default.png"}
           alt="Shop Logo"
           style={{ width: '50px', height: '50px' }}
         />
@@ -116,7 +116,7 @@ const Page = () => {
         
         <input
           type="text"
-          placeholder="Filter by name"
+          placeholder="Filter by shop name"
           value={shopNameFilter || ''}
           onChange={(e) => setShopNameFilter(e.target.value || null)}
           className="border p-2 rounded w-300"

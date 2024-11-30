@@ -10,7 +10,10 @@ import {
   House,
   Barcode,
   CircleDollarSign,
-  ChartColumnDecreasing,
+  Maximize2,
+  Minimize,
+  CircleSlash2,
+  // ChartColumnDecreasing,
 } from "lucide-react";
 import ShopGraph from "./ShopGraph";
 import TopShops from "./TopShops";
@@ -36,7 +39,7 @@ const ProductsStatus = ({shops, products}) => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">In Stock</CardTitle>
-            <House />
+            <Maximize2 />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{inStock?.length || 0}</div>
@@ -46,7 +49,7 @@ const ProductsStatus = ({shops, products}) => {
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Out of Stock</CardTitle>
 
-            <Barcode />
+            <CircleSlash2 />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{outOfStock?.length || 0}</div>
@@ -55,7 +58,7 @@ const ProductsStatus = ({shops, products}) => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Low Stock</CardTitle>
-            <CircleDollarSign />
+            <Minimize />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{lowStock?.length || 0}</div>
@@ -68,7 +71,7 @@ const ProductsStatus = ({shops, products}) => {
             <CardTitle>Stock Status Distribution</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <ShopGraph />
+            <ShopGraph inStock={inStock} outOfStock={outOfStock} lowStock={lowStock} />
           </CardContent>
         </Card>
         <Card className="col-span-3">
