@@ -1,14 +1,5 @@
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
-interface Product {
-  price: number;
-  stockLevel: number;
-  total: number;
-}
-
-interface OverviewProps {
-  products: Product[];
-}
 
 const priceRanges = [
   { name: "0-1000", min: 0, max: 1000 },
@@ -17,7 +8,7 @@ const priceRanges = [
   { name: "10001+", min: 10001, max: Infinity },
 ];
 
-function groupByPriceRange(products: Product[]) {
+function groupByPriceRange(products) {
   return priceRanges?.map((range) => {
     const productsInRange = products?.filter(
       (product) => product.price >= range.min && product.price <= range.max
@@ -33,7 +24,7 @@ function groupByPriceRange(products: Product[]) {
 }
 
 
-export function Overview({ products }: OverviewProps) {
+export function Overview({ products }) {
   const groupedData = groupByPriceRange(products);
 
   return (

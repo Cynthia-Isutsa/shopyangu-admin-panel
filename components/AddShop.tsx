@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { addShop } from "@/app/services/service";
-import { Shop } from "@/data"; 
+import { Shop } from "@/types/data"; 
 
 export function AddShop() {
   const [formData, setFormData] = useState<Shop>({

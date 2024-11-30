@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { addProduct } from "@/app/services/service";
-import { Product } from "@/data"; // Import Product type from data.d.ts
+import { Product } from "@/types/data"; // Import Product type from data.d.ts
 
 export function AddProduct({ shopId }) {
   const [formData, setFormData] = useState<Product>({

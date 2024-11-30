@@ -14,11 +14,12 @@ import { fetchAllProducts, fetchShops, } from "@/app/services/service";
 import { Overview } from "./Overview";
 import ProductsStatus from "./ProductsStatus";
 import RecentShops from "./RecentShops";
+import { Product, Shop } from "@/types/data";
 
 
 const DashboardTabs = () => {
-  const [shops, setShops] = useState(); 
-  const [products, setProducts] = useState(); 
+  const [shops, setShops] = useState<Shop[]>(); 
+  const [products, setProducts] = useState<Product[]>(); 
   // const [error, setError] = useState(""); 
 
 useEffect(() => {

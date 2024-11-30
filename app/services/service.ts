@@ -1,4 +1,4 @@
-import { Product, Shop } from "@/data";
+import { Product, Shop } from "@/types/data";
 
 export const fetchShops = async () => {
   try {
@@ -46,7 +46,7 @@ export const fetchProductsByShop = async (shopId: string): Promise<Product[]> =>
 
     return data?.filter((product) => product.shopId === shopId);
   } catch (error) {
-    console.error('Error fetching products for shop:', error.message || error);
+    console.error('Error fetching products for shop:',  error);
     throw error;
   }
 };
@@ -69,7 +69,7 @@ export const addProduct = async (product: Omit<Product, 'id'>): Promise<Product>
     const data: Product = await response.json();
     return data;
   } catch (error) {
-    console.error('Error adding product:', error.message || error);
+    console.error('Error adding product:',  error);
     throw error;
   }
 };
@@ -91,7 +91,7 @@ export const addShop = async (product: Omit<Shop, 'id'>): Promise<Shop> => {
     const data: Shop = await response.json();
     return data;
   } catch (error) {
-    console.error('Error adding shop:', error.message || error);
+    console.error('Error adding shop:', error);
     throw error;
   }
 };
@@ -116,7 +116,7 @@ export const deleteProduct = async (id: string): Promise<Product> => {
     const data: Product = await response.json();
     return data;
   } catch (error) {
-    console.error('Error adding product:', error.message || error);
+    console.error('Error adding product:', error);
     throw error;
   }
 };
@@ -136,7 +136,7 @@ export const deleteShop = async (id: string): Promise<void> => {
 
     return; 
   } catch (error) {
-    console.error('Error deleting shop:', error.message || error);
+    console.error('Error deleting shop:', error);
     throw error;
   }
 };
@@ -158,7 +158,7 @@ export const editProduct = async (id: string, updatedProduct: Partial<Product>):
     const data: Product = await response.json();
     return data;
   } catch (error) {
-    console.error('Error editing product:', error.message || error);
+    console.error('Error editing product:', error);
     throw error;
   }
 };
@@ -181,7 +181,7 @@ export const editShop = async (id: string, updatedShop: Partial<Shop>): Promise<
     const data: Shop = await response.json();
     return data;
   } catch (error) {
-    console.error('Error editing shop:', error.message || error);
+    console.error('Error editing shop:', error);
     throw error;
   }
 };

@@ -8,7 +8,7 @@ import { deleteShop, fetchShops } from '../services/service';
 import { AddShop } from '@/components/AddShop';
 import { Delete } from 'lucide-react';
 import { EditShop } from '@/components/EditShop';
-import { Shop } from '@/data';
+import { Shop } from '@/types/data';
 import Image from 'next/image';
 
 const Page = () => {
@@ -51,7 +51,7 @@ const Page = () => {
     filterShops();
   }, [shopTypeFilter, shopNameFilter, shops]);
 
-  const handleDelete = async (shopId) => {
+  const handleDelete = async (shopId: string | undefined) => {
     if (!shopId) return;
 
     try {

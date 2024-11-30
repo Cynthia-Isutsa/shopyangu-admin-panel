@@ -79,7 +79,7 @@ const ProductsStatus = ({shops, products}) => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <TopShops topShops={top5Shops} products = {products} />
+            <TopShops topShops={top5Shops}/>
           </CardContent>
         </Card>
       </div>

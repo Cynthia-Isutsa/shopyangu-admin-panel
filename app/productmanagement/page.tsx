@@ -6,9 +6,9 @@ import { ProductCard } from "@/components/ProductCard";
 // import router from "next/router";
 import React, { useEffect, useState } from "react";
 import { fetchShops } from "../services/service";
-import { Shop } from "@/data";
+import { Shop } from "@/types/data";
 
-const page = () => {
+const Page = () => {
   const [shops, setShops] = useState<Shop[]>([]); 
  
 
@@ -52,4 +52,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

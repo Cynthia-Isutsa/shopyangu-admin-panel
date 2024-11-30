@@ -5,13 +5,14 @@ import PageTitle from '@/components/PageTitle';
 import { DataTable } from '@/components/DataTable';
 import { useEffect, useState } from 'react';
 import { deleteProduct, fetchProductsByShop } from '../services/service';
-import { Product } from '@/data';
+import { Product } from '@/types/data';
 import { ColumnDef } from '@tanstack/react-table';
 import { EditProduct } from '@/components/EditProduct';
 import { AddProduct } from '@/components/AddProduct';
 import { Delete } from 'lucide-react';
+import Image from 'next/image';
 
-const page = () => {
+const Page = () => {
   const searchParams = useSearchParams();
   const shopName = searchParams.get('shopName') || '';
   const shopId = searchParams.get('shopId') || '';
@@ -20,7 +21,7 @@ const page = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [priceFilter, setPriceFilter] = useState<number | null>(null);
   const [stockFilter, setStockFilter] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  //const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -28,8 +29,8 @@ const page = () => {
         const products = await fetchProductsByShop(shopId);
         setProducts(products);
         setFilteredProducts(products);
-      } catch (error: any) {
-        setError(error.message || 'Failed to load products.');
+      } catch (error) {
+        console.log(error)
       }
     };
 
@@ -62,7 +63,7 @@ const page = () => {
     filter();
   }, [searchQuery, priceFilter, stockFilter, products]);
 
-  const handleDelete = async (productId: any) => {
+  const handleDelete = async (productId: string | undefined) => {
     if (!productId) return;
 
     try {
@@ -79,11 +80,18 @@ const page = () => {
       accessorKey: "image",
       header: "Product Image",
       cell: (info) => (
-        <img
-          src={info.getValue() as string || "/default.png"}
-          alt="Product Image"
-          style={{ width: "50px", height: "50px" }}
-        />
+        <Image
+        src={info.getValue() as string || "/default.png"}
+        alt="Shop Logo"
+        width={50} 
+        height={50} 
+        style={{ objectFit: 'cover' }} 
+      />
+        // <img
+        //   src={info.getValue() as string || "/default.png"}
+        //   alt="Product Image"
+        //   style={{ width: "50px", height: "50px" }}
+        // />
       ),
       meta: {
         style: { width: "100px" },
@@ -147,7 +155,7 @@ const page = () => {
               <Pencil className="text-blue-500" />
             </button> */}
             <EditProduct product={info?.row?.original} shopId= {info.row.original.shopId} />
-            <button onClick={() => handleDelete(info.row.original.id)}>
+            <button onClick={() => handleDelete(info?.row?.original?.id)}>
               <Delete className="text-red-500" />
             </button>
           </div>
@@ -194,4 +202,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Shop } from "@/data";
+import { Shop } from "@/types/data";
 import Image from "next/image";
 import Link from "next/link";
 
