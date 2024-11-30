@@ -9,15 +9,10 @@ import { Button } from "@/components/ui/button";
 import router from "next/router";
 import { AddShop } from "@/components/AddShop";
 import { Delete, Pencil } from "lucide-react";
+import { EditShop } from "@/components/EditShop";
+import { Shop } from "@/data";
 
-type Shop = {
-  name: string;
-  type: string;
-  description: string;
-  logo: string;
-  location: string;
-  contact: string;
-};
+
 
 const handleDelete = async (shopId: any) => {
   if (!shopId) return;
@@ -87,7 +82,7 @@ const Page = () => {
       },
     },
     {
-      accessorKey: "logo",
+      accessorKey: "image",
       header: "Logo",
       cell: (info) => (
         <img
@@ -125,10 +120,14 @@ const Page = () => {
       cell: (info) => {
         return (
           <div className="flex space-x-2">
-            <button onClick={() => handleEdit(info.row.original)}>
+            {/* <button onClick={() => handleEdit(info.row.original)}>
              
               <Pencil className="text-blue-500" />
-            </button>
+            </button> */}
+            <EditShop
+              shopId={info.row.original.id} 
+              initialData={info.row.original}
+              />
             <button onClick={() => handleDelete(info.row.original.id)}>
               <Delete className="text-red-500" />
             </button>

@@ -99,14 +99,14 @@ export const addShop = async (product: Omit<Shop, 'id'>): Promise<Shop> => {
 
 
 
-export const deleteProduct = async (product: Omit<Product, 'id'>): Promise<Product> => {
+export const deleteProduct = async (id: string): Promise<Product> => {
   try {
-    const response = await fetch('/api/v1/products/:id', {
+    const response = await fetch(`/api/v1/products/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(product),
+      // body: JSON.stringify(product),
     });
 
     if (!response.ok) {
@@ -141,6 +141,50 @@ export const deleteShop = async (id: string): Promise<void> => {
   }
 };
 
+export const editProduct = async (id: string, updatedProduct: Partial<Product>): Promise<Product> => {
+  try {
+    const response = await fetch(`/api/v1/products/${id}`, {
+      method: 'PATCH', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedProduct),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to edit product: ${response.statusText}`);
+    }
+
+    const data: Product = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error('Error editing product:', error.message || error);
+    throw error;
+  }
+};
+
+
+export const editShop = async (id: string, updatedShop: Partial<Shop>): Promise<Shop> => {
+  try {
+    const response = await fetch(`/api/v1/shops/${id}`, {
+      method: 'PATCH', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedShop),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to edit shop: ${response.statusText}`);
+    }
+
+    const data: Shop = await response.json();
+    return data;
+  } catch (error: any) {
+    console.error('Error editing shop:', error.message || error);
+    throw error;
+  }
+};
 
 
 
