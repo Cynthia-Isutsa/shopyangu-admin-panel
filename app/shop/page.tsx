@@ -1,154 +1,129 @@
-"use client"
+'use client';
 
-import React, { useEffect, useState } from "react";
-import PageTitle from "@/components/PageTitle";
-import { DataTable } from "@/components/DataTable";
-import { ColumnDef } from "@tanstack/react-table";
-import { deleteShop, fetchShops } from "../services/service";
-import { Button } from "@/components/ui/button";
-import router from "next/router";
-import { AddShop } from "@/components/AddShop";
-import { Delete, Pencil } from "lucide-react";
-import { EditShop } from "@/components/EditShop";
-import { Shop } from "@/data";
-
-
-
-const handleDelete = async (shopId: any) => {
-  if (!shopId) return;
-
-  try {
-    const deletedProduct = await deleteShop(shopId);
-    console.log({shopId})
-    console.log('Deleted shop:', deletedProduct);
-    // You might want to update the state or re-fetch the products after deletion
-  } catch (error) {
-    console.error('Failed to delete shop:', error);
-  }
-};
-
-const handleEdit = (product: Shop) => {
-  // Implement the edit logic, e.g., open an edit modal
-  console.log('Editing shop:', product);
-};
+import React, { useEffect, useState } from 'react';
+import PageTitle from '@/components/PageTitle';
+import { DataTable } from '@/components/DataTable';
+import { ColumnDef } from '@tanstack/react-table';
+import { deleteShop, fetchShops } from '../services/service';
+import { AddShop } from '@/components/AddShop';
+import { Delete } from 'lucide-react';
+import { EditShop } from '@/components/EditShop';
+import { Shop } from '@/data';
 
 const Page = () => {
-  const [shops, setShops] = useState<Shop[]>([]); 
-  const [error, setError] = useState<string | null>(null); 
+  const [shops, setShops] = useState<Shop[]>([]);
+  const [filteredShops, setFilteredShops] = useState<Shop[]>([]);
+  const [shopTypeFilter, setShopTypeFilter] = useState<string | null>(null);
+  const [shopNameFilter, setShopNameFilter] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const loadShops = async () => {
       try {
-        const data = await fetchShops(); 
-        setShops(data); 
+        const data = await fetchShops();
+        setShops(data);
+        setFilteredShops(data); 
       } catch (error: any) {
-        setError(error.message); 
+        setError(error.message);
       }
     };
 
-    loadShops(); 
-  }, []); 
+    loadShops();
+  }, []);
 
-  console.log({shops})
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  useEffect(() => {
+    const filterShops = () => {
+      let result = [...shops];
+
+      if (shopTypeFilter) {
+        result = result.filter((shop) => shop.type === shopTypeFilter);
+      }
+
+      if (shopNameFilter) {
+        result = result.filter((shop) =>
+          shop.name.toLowerCase().includes(shopNameFilter.toLowerCase())
+        );
+      }
+
+      setFilteredShops(result);
+    };
+
+    filterShops();
+  }, [shopTypeFilter, shopNameFilter, shops]);
+
+  const handleDelete = async (shopId: any) => {
+    if (!shopId) return;
+
+    try {
+      await deleteShop(shopId);
+      setShops((prev) => prev.filter((shop) => shop.id !== shopId));
+    } catch (error) {
+      console.error('Failed to delete shop:', error);
+    }
+  };
 
   const columns: ColumnDef<Shop>[] = [
+    { accessorKey: 'name', header: 'Name', cell: (info) => info.getValue() },
+    { accessorKey: 'type', header: 'Type', cell: (info) => info.getValue() },
+    { accessorKey: 'description', header: 'Description', cell: (info) => info.getValue() },
     {
-      accessorKey: "name",
-      header: "Name",
-      cell: (info) => info.getValue(),
-      meta: {
-        style: { width: "100px" },
-      },
-    },
-    {
-      accessorKey: "type",
-      header: "Type",
-      cell: (info) => {
-        const value = info.getValue() as string;
-        return value.charAt(0).toUpperCase() + value.slice(1);
-      },
-      meta: {
-        style: { width: "100px" },
-      },
-    },
-    {
-      accessorKey: "description",
-      header: "Description",
-      cell: (info) => info.getValue(),
-      meta: {
-        style: { width: "100px" },
-      },
-    },
-    {
-      accessorKey: "image",
-      header: "Logo",
+      accessorKey: 'image',
+      header: 'Logo',
       cell: (info) => (
         <img
           src={info.getValue() as string}
           alt="Shop Logo"
-          style={{ width: "50px", height: "50px" }}
+          style={{ width: '50px', height: '50px' }}
         />
       ),
-      meta: {
-        style: { width: "100px" },
-      },
     },
+    { accessorKey: 'location', header: 'Location', cell: (info) => info.getValue() },
+    { accessorKey: 'contact', header: 'Contact', cell: (info) => info.getValue() },
     {
-      accessorKey: "location",
-      header: "Location",
-      cell: (info) => {
-        const value = info.getValue() as string;
-        return value.charAt(0).toUpperCase() + value.slice(1);
-      },
-      meta: {
-        style: { width: "100px" },
-      },
-    },
-    {
-      accessorKey: "contact",
-      header: "Contact",
-      cell: (info) => info.getValue(),
-      meta: {
-        style: { width: "100px" },
-      },
-    },
-    {
-      accessorKey: "actions",
-      header: "Actions",
-      cell: (info) => {
-        return (
-          <div className="flex space-x-2">
-            {/* <button onClick={() => handleEdit(info.row.original)}>
-             
-              <Pencil className="text-blue-500" />
-            </button> */}
-            <EditShop
-              shopId={info.row.original.id} 
-              initialData={info.row.original}
-              />
-            <button onClick={() => handleDelete(info.row.original.id)}>
-              <Delete className="text-red-500" />
-            </button>
-          </div>
-        );
-      },
-      meta: {
-        style: { width: "150px" }, // Adjust the width as needed
-      },
+      accessorKey: 'actions',
+      header: 'Actions',
+      cell: (info) => (
+        <div className="flex space-x-2">
+          <EditShop shopId={info.row.original.id} initialData={info.row.original} />
+          <button onClick={() => handleDelete(info.row.original.id)}>
+            <Delete className="text-red-500" />
+          </button>
+        </div>
+      ),
     },
   ];
-
 
   return (
     <div className="flex flex-col gap-5 w-full px-10">
       <div className="flex justify-between items-center px-10">
         <PageTitle title="Shop Management" />
-       <AddShop />
+        <AddShop />
       </div>
-      
-      <DataTable columns={columns} data={shops} />
+
+      <div className="flex gap-4 my-4">
+        
+        <select
+          value={shopTypeFilter || ''}
+          onChange={(e) => setShopTypeFilter(e.target.value || null)}
+          className="border p-2 rounded w-40"
+        >
+          <option value="">All Types</option>
+          <option value="Wholesale">Wholesale</option>
+          <option value="Retail">Retail</option>
+          <option value="General">General</option>
+        </select>
+
+        
+        <input
+          type="text"
+          placeholder="Filter by name"
+          value={shopNameFilter || ''}
+          onChange={(e) => setShopNameFilter(e.target.value || null)}
+          className="border p-2 rounded w-300"
+        />
+      </div>
+
+      <DataTable columns={columns} data={filteredShops} />
     </div>
   );
 };

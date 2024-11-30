@@ -1,60 +1,79 @@
-'use client'
+'use client';
 
-
-
-import { useSearchParams } from 'next/navigation'
-import PageTitle from '@/components/PageTitle'
-import { Button } from '@/components/ui/button'
-import { DataTable } from '@/components/DataTable'
-import { useEffect, useState } from 'react'
-import { deleteProduct, fetchProductsByShop } from '../services/service'
-import { Product } from '@/data'
-import { ColumnDef } from '@tanstack/react-table'
-import router from 'next/router'
-import { AddProduct } from '@/components/AddProduct'
-import { Delete, Pencil } from 'lucide-react'
+import { useSearchParams } from 'next/navigation';
+import PageTitle from '@/components/PageTitle';
+import { DataTable } from '@/components/DataTable';
+import { useEffect, useState } from 'react';
+import { deleteProduct, fetchProductsByShop } from '../services/service';
+import { Product } from '@/data';
+import { ColumnDef } from '@tanstack/react-table';
+import { EditProduct } from '@/components/EditProduct';
+import { AddProduct } from '@/components/AddProduct';
+import { Delete } from 'lucide-react';
 
 const page = () => {
-  const searchParams = useSearchParams()
-  const shopName = searchParams.get('shopName') || ''
-  const shopId = searchParams.get("shopId") || "";
-  const [products, setProducts] = useState<Product[]>([]); 
-  const [error, setError] = useState<string | null>(null); 
-  console.log({shopName, shopId})
-
+  const searchParams = useSearchParams();
+  const shopName = searchParams.get('shopName') || '';
+  const shopId = searchParams.get('shopId') || '';
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [priceFilter, setPriceFilter] = useState<number | null>(null);
+  const [stockFilter, setStockFilter] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
         const products = await fetchProductsByShop(shopId);
-        setProducts(products); 
+        setProducts(products);
+        setFilteredProducts(products);
       } catch (error: any) {
-        setError(error.message || 'Failed to load products.'); 
+        setError(error.message || 'Failed to load products.');
       }
     };
-  
+
     if (shopId) {
       loadProducts();
     }
   }, [shopId]);
 
+  useEffect(() => {
+    const filter = () => {
+      let result = [...products];
+
+      if (searchQuery) {
+        result = result.filter((product) =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+
+      if (priceFilter !== null) {
+        result = result.filter((product) => product.price <= priceFilter);
+      }
+
+      if (stockFilter !== null) {
+        result = result.filter((product) => product.stockLevel >= stockFilter);
+      }
+
+      setFilteredProducts(result);
+    };
+
+    filter();
+  }, [searchQuery, priceFilter, stockFilter, products]);
+
   const handleDelete = async (productId: any) => {
     if (!productId) return;
-  
+
     try {
       const deletedProduct = await deleteProduct(productId);
       console.log('Deleted product:', deletedProduct);
-      // You might want to update the state or re-fetch the products after deletion
+      setProducts((prev) => prev.filter((product) => product.id !== productId));
     } catch (error) {
       console.error('Failed to delete product:', error);
     }
   };
-  
-  const handleEdit = (product: Product) => {
-    // Implement the edit logic, e.g., open an edit modal
-    console.log('Editing product:', product);
-  };
- 
+
   const columns: ColumnDef<Product>[] = [
     {
       accessorKey: "image",
@@ -123,10 +142,11 @@ const page = () => {
       cell: (info) => {
         return (
           <div className="flex space-x-2">
-            <button onClick={() => handleEdit(info.row.original)}>
+            {/* <button onClick={() => handleEdit(info.row.original)}>
              
               <Pencil className="text-blue-500" />
-            </button>
+            </button> */}
+            <EditProduct product={info?.row?.original} shopId= {info.row.original.shopId} />
             <button onClick={() => handleDelete(info.row.original.id)}>
               <Delete className="text-red-500" />
             </button>
@@ -139,20 +159,39 @@ const page = () => {
     },
   ]
 
-
-
   return (
-
-  
     <div className="flex flex-col gap-5 w-full px-10">
       <div className="flex justify-between items-center px-10">
         <PageTitle title={`${shopName} Products`} />
         <AddProduct shopId={shopId} />
       </div>
-      
-      <DataTable columns={columns} data={products} />
-    </div>
-  )
-}
+      <div className="flex gap-4 my-8 mr-10">
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="border p-2 rounded w-full"
+        />
+        <input
+          type="number"
+          placeholder="Max Price"
+          value={priceFilter || ''}
+          onChange={(e) => setPriceFilter(e.target.value ? parseInt(e.target.value) : null)}
+          className="border p-2 rounded w-100"
+        />
+        <input
+          type="number"
+          placeholder="Min Stock"
+          value={stockFilter || ''}
+          onChange={(e) => setStockFilter(e.target.value ? parseInt(e.target.value) : null)}
+          className="border p-2 rounded w-100"
+        />
+      </div>
 
-export default page
+      <DataTable columns={columns} data={filteredProducts} />
+    </div>
+  );
+};
+
+export default page;
