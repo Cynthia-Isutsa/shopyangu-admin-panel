@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 import PageTitle from '@/components/PageTitle';
 import { DataTable } from '@/components/DataTable';
 import { useEffect, useState } from 'react';
@@ -11,11 +11,27 @@ import { EditProduct } from '@/components/EditProduct';
 import { AddProduct } from '@/components/AddProduct';
 import { Delete } from 'lucide-react';
 import Image from 'next/image';
+// import { useRouter } from 'next/router';
 
 const Page = () => {
-  const searchParams = useSearchParams();
-  const shopName = searchParams.get('shopName') || '';
-  const shopId = searchParams.get('shopId') || '';
+  const [shopId, setShopId] = useState<string | null>(null);
+  const [shopName, setShopName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);  // Access URL parameters directly
+
+    const shopIdParam = urlParams.get('shopId');
+    const shopNameParam = urlParams.get('shopName');
+
+    // Set state if parameters exist
+    if (shopIdParam) {
+      setShopId(shopIdParam);
+    }
+
+    if (shopNameParam) {
+      setShopName(shopNameParam);
+    }
+  }, []);
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');

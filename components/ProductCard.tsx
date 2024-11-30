@@ -1,3 +1,5 @@
+"use client"
+
 import {  Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -12,11 +14,13 @@ import {
 } from "@/components/ui/card";
 import { Shop } from "@/types/data";
 import Image from "next/image";
-import Link from "next/link";
+
 
 type ExtendedCardProps = React.ComponentProps<typeof Card> & {
   shop: Shop;
 };
+
+
 
 export function ProductCard({ shop, className, ...props }: ExtendedCardProps) {
   console.log({ shop });
@@ -51,7 +55,7 @@ export function ProductCard({ shop, className, ...props }: ExtendedCardProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <Link
+        {/* <Link
           href={{
             pathname: "/product",
             query: {
@@ -60,14 +64,21 @@ export function ProductCard({ shop, className, ...props }: ExtendedCardProps) {
             },
           }}
           passHref
-        >
+        > */}
           <Button
-            variant="default"
-            className="w-full flex items-center justify-center space-x-2"
-          >
-            <Check /> <span>View Products</span>
-          </Button>
-        </Link>
+  variant="default"
+  className="w-full flex items-center justify-center space-x-2"
+  onClick={() => {
+    if (shop?.id && shop?.name) {
+      const url = `/product?shopId=${shop.id}&shopName=${shop.name}`;
+      window.location.href = url;
+    }
+  }}
+>
+  <Check /> <span>View Products</span>
+</Button>
+
+        {/* </Link> */}
       </CardFooter>
     </Card>
   );
