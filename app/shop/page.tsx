@@ -9,13 +9,13 @@ import { AddShop } from '@/components/AddShop';
 import { Delete } from 'lucide-react';
 import { EditShop } from '@/components/EditShop';
 import { Shop } from '@/data';
+import Image from 'next/image';
 
 const Page = () => {
   const [shops, setShops] = useState<Shop[]>([]);
   const [filteredShops, setFilteredShops] = useState<Shop[]>([]);
   const [shopTypeFilter, setShopTypeFilter] = useState<string | null>(null);
   const [shopNameFilter, setShopNameFilter] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadShops = async () => {
@@ -23,8 +23,8 @@ const Page = () => {
         const data = await fetchShops();
         setShops(data);
         setFilteredShops(data); 
-      } catch (error: any) {
-        setError(error.message);
+      } catch (error) {
+        console.log(error)
       }
     };
 
@@ -51,7 +51,7 @@ const Page = () => {
     filterShops();
   }, [shopTypeFilter, shopNameFilter, shops]);
 
-  const handleDelete = async (shopId: any) => {
+  const handleDelete = async (shopId) => {
     if (!shopId) return;
 
     try {
@@ -70,11 +70,18 @@ const Page = () => {
       accessorKey: 'image',
       header: 'Logo',
       cell: (info) => (
-        <img
-          src={info.getValue() as string || "/default.png"}
-          alt="Shop Logo"
-          style={{ width: '50px', height: '50px' }}
-        />
+        <Image
+        src={info.getValue() as string || "/default.png"}
+        alt="Shop Logo"
+        width={50} 
+        height={50} 
+        style={{ objectFit: 'cover' }}
+      />
+        // <img
+        //   src={info.getValue() as string || "/default.png"}
+        //   alt="Shop Logo"
+        //   style={{ width: '50px', height: '50px' }}
+        // />
       ),
     },
     { accessorKey: 'location', header: 'Location', cell: (info) => info.getValue() },

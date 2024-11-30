@@ -10,21 +10,15 @@ import {
   } from "lucide-react"
 
 interface MailProps {
-    // accounts: {
-    //   label: string
-    //   email: string
-    //   icon: React.ReactNode
-    // }[]
-    // defaultLayout: number[] | undefined
     defaultCollapsed?: boolean
-    // navCollapsedSize: number
   }
 
 const Sidebar = ({
     defaultCollapsed = false,
   }: MailProps) => {
-    //@ts-nocheck
+   
     const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed)
+    console.log(setIsCollapsed)
   return (
     <div>
         <Nav

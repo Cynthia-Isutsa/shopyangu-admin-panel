@@ -44,8 +44,8 @@ export const fetchProductsByShop = async (shopId: string): Promise<Product[]> =>
       throw new Error('Unexpected response format: "products" should be an array.');
     }
 
-    return data?.filter((product: any) => product.shopId === shopId);
-  } catch (error: any) {
+    return data?.filter((product) => product.shopId === shopId);
+  } catch (error) {
     console.error('Error fetching products for shop:', error.message || error);
     throw error;
   }
@@ -68,7 +68,7 @@ export const addProduct = async (product: Omit<Product, 'id'>): Promise<Product>
 
     const data: Product = await response.json();
     return data;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error adding product:', error.message || error);
     throw error;
   }
@@ -90,7 +90,7 @@ export const addShop = async (product: Omit<Shop, 'id'>): Promise<Shop> => {
 
     const data: Shop = await response.json();
     return data;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error adding shop:', error.message || error);
     throw error;
   }
@@ -115,7 +115,7 @@ export const deleteProduct = async (id: string): Promise<Product> => {
 
     const data: Product = await response.json();
     return data;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error adding product:', error.message || error);
     throw error;
   }
@@ -135,7 +135,7 @@ export const deleteShop = async (id: string): Promise<void> => {
     }
 
     return; 
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error deleting shop:', error.message || error);
     throw error;
   }
@@ -157,7 +157,7 @@ export const editProduct = async (id: string, updatedProduct: Partial<Product>):
 
     const data: Product = await response.json();
     return data;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error editing product:', error.message || error);
     throw error;
   }
@@ -180,7 +180,7 @@ export const editShop = async (id: string, updatedShop: Partial<Shop>): Promise<
 
     const data: Shop = await response.json();
     return data;
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error editing shop:', error.message || error);
     throw error;
   }

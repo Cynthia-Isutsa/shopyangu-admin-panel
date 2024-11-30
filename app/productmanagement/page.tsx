@@ -10,15 +10,15 @@ import { Shop } from "@/data";
 
 const page = () => {
   const [shops, setShops] = useState<Shop[]>([]); 
-  const [error, setError] = useState<string | null>(null); 
+ 
 
   useEffect(() => {
     const loadShops = async () => {
       try {
         const data = await fetchShops(); 
         setShops(data); 
-      } catch (error: any) {
-        setError(error.message); 
+      } catch (error) {
+        console.log(error)
       }
     };
 
