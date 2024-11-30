@@ -4,9 +4,9 @@ import { PieChart, Pie, Tooltip, Cell, Legend } from "recharts";
 function ShopGraph({ inStock, outOfStock, lowStock }) {
   // Data for the Pie chart
   const data = [
-    { name: "In Stock", value: inStock.length, color: "#4CAF50" },
-    { name: "Out of Stock", value: outOfStock.length, color: "#F44336" },
-    { name: "Low Stock", value: lowStock.length, color: "#FFEB3B" },
+    { name: "In Stock", value: inStock?.length, color: "#4CAF50" },
+    { name: "Out of Stock", value: outOfStock?.length, color: "#F44336" },
+    { name: "Low Stock", value: lowStock?.length, color: "#FFEB3B" },
   ];
 
   return (
@@ -21,7 +21,7 @@ function ShopGraph({ inStock, outOfStock, lowStock }) {
           fill="#8884d8"
           label
         >
-          {data.map((entry, index) => (
+          {data?.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Pie>

@@ -43,17 +43,17 @@ const page = () => {
       let result = [...products];
 
       if (searchQuery) {
-        result = result.filter((product) =>
+        result = result?.filter((product) =>
           product.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
 
       if (priceFilter !== null) {
-        result = result.filter((product) => product.price <= priceFilter);
+        result = result?.filter((product) => product.price <= priceFilter);
       }
 
       if (stockFilter !== null) {
-        result = result.filter((product) => product.stockLevel >= stockFilter);
+        result = result?.filter((product) => product.stockLevel >= stockFilter);
       }
 
       setFilteredProducts(result);

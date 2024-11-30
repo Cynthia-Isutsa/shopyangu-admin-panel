@@ -18,12 +18,12 @@ const priceRanges = [
 ];
 
 function groupByPriceRange(products: Product[]) {
-  return priceRanges.map((range) => {
-    const productsInRange = products.filter(
+  return priceRanges?.map((range) => {
+    const productsInRange = products?.filter(
       (product) => product.price >= range.min && product.price <= range.max
     );
 
-    const totalStockLevel = productsInRange.reduce((sum, product) => sum + product.stockLevel, 0);
+    const totalStockLevel = productsInRange?.reduce((sum, product) => sum + product.stockLevel, 0);
 
     return {
       name: range.name,

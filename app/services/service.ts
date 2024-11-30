@@ -44,7 +44,7 @@ export const fetchProductsByShop = async (shopId: string): Promise<Product[]> =>
       throw new Error('Unexpected response format: "products" should be an array.');
     }
 
-    return data.filter((product: any) => product.shopId === shopId);
+    return data?.filter((product: any) => product.shopId === shopId);
   } catch (error: any) {
     console.error('Error fetching products for shop:', error.message || error);
     throw error;

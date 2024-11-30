@@ -40,7 +40,7 @@ const Page = () => {
       }
 
       if (shopNameFilter) {
-        result = result.filter((shop) =>
+        result = result?.filter((shop) =>
           shop.name.toLowerCase().includes(shopNameFilter.toLowerCase())
         );
       }
@@ -56,7 +56,7 @@ const Page = () => {
 
     try {
       await deleteShop(shopId);
-      setShops((prev) => prev.filter((shop) => shop.id !== shopId));
+      setShops((prev) => prev?.filter((shop) => shop.id !== shopId));
     } catch (error) {
       console.error('Failed to delete shop:', error);
     }

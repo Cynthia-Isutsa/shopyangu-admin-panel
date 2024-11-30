@@ -96,7 +96,7 @@ console.log({products})
             </CardHeader>
             <CardContent>
   <div className="text-2xl font-bold">
-    Ksh.{new Intl.NumberFormat('en-KE').format(totalPrice)}
+    Ksh.{new Intl.NumberFormat('en-KE').format(totalPrice || 0) || 0}
   </div>
 </CardContent>
 

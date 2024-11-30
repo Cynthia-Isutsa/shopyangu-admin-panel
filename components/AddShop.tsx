@@ -127,7 +127,7 @@ export function AddShop({ shopId }: any) {
                 onChange={handleChange}
                 type="tel"
                 placeholder="Enter phone number ..."
-                pattern="[\+]?[0-9]{1,4}?[-\s]?[0-9]{1,3}[-\s]?[0-9]{1,4}[-\s]?[0-9]{1,4}[-\s]?[0-9]{1,9}" // Optional regex pattern for basic phone number validation
+                // pattern="[\+]?[0-9]{1,4}?[-\s]?[0-9]{1,3}[-\s]?[0-9]{1,4}[-\s]?[0-9]{1,4}[-\s]?[0-9]{1,9}" // Optional regex pattern for basic phone number validation
               />
             </div>
 

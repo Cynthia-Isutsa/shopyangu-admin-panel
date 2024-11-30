@@ -22,9 +22,9 @@ const ProductsStatus = ({shops, products}) => {
   console.log({shops})
   console.log({products})
 
-  const inStock = products.filter((product) => product.stockLevel > 5);
-  const outOfStock = products.filter((product) => product.stockLevel === 0);
-  const lowStock = products.filter(
+  const inStock = products?.filter((product) => product.stockLevel > 5);
+  const outOfStock = products?.filter((product) => product.stockLevel === 0);
+  const lowStock = products?.filter(
     (product) => product.stockLevel > 0 && product.stockLevel <= 5
   );
 
@@ -95,18 +95,18 @@ export default ProductsStatus;
 
 
 const getTop5ShopsByStockLevel = (shops, products) => {
-  const shopStockLevels = products.reduce((acc, product) => {
+  const shopStockLevels = products?.reduce((acc, product) => {
     const { shopId, stockLevel } = product;
     acc[shopId] = (acc[shopId] || 0) + stockLevel;
     return acc;
   }, {});
 
-  const shopsWithStockLevels = shops.map((shop) => ({
+  const shopsWithStockLevels = shops?.map((shop) => ({
     ...shop,
     totalStockLevel: shopStockLevels[shop.id] || 0, 
   }));
 
   return shopsWithStockLevels
-    .sort((a, b) => b.totalStockLevel - a.totalStockLevel)
+    ?.sort((a, b) => b.totalStockLevel - a.totalStockLevel)
     .slice(0, 5);
 };

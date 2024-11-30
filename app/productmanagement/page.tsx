@@ -44,7 +44,7 @@ const page = () => {
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {shops.map((shop) => (
+        {shops?.map((shop) => (
           <ProductCard key={shop.id} shop={shop} />
         ))}
       </div>
