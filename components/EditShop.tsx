@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,7 +16,7 @@ import { editShop } from "@/app/services/service";
 import { Shop } from "@/data";
 import { Pencil } from "lucide-react";
 
-export function EditShop({ shopId, initialData }: { shopId: any; initialData: Shop }) {
+export function EditShop({ shopId, initialData }: { shopId; initialData: Shop }) {
   const [formData, setFormData] = useState<Shop>(initialData);
 
   const [open, setOpen] = useState(false);

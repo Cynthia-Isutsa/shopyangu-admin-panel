@@ -5,9 +5,7 @@ import React from 'react'
 import { Nav } from './ui/nav'
 import {
     AlertCircle,
-    Archive,
     MessagesSquare,
-    ShoppingCart,
     Users2,
   } from "lucide-react"
 
@@ -25,6 +23,7 @@ interface MailProps {
 const Sidebar = ({
     defaultCollapsed = false,
   }: MailProps) => {
+    //@ts-nocheck
     const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed)
   return (
     <div>

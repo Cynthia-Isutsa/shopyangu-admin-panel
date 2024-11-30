@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { addShop } from "@/app/services/service";
 import { Shop } from "@/data"; 
 
-export function AddShop({ shopId }: any) {
+export function AddShop() {
   const [formData, setFormData] = useState<Shop>({
     name: "",
     contact: "",
@@ -32,7 +32,7 @@ export function AddShop({ shopId }: any) {
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
 
     setFormData((prevData) => ({
       ...prevData,

@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { addProduct } from "@/app/services/service";
 import { Product } from "@/data"; // Import Product type from data.d.ts
 
-export function AddProduct({ shopId }: any) {
+export function AddProduct({ shopId }) {
   const [formData, setFormData] = useState<Product>({
     shopId: shopId,
     name: "",
